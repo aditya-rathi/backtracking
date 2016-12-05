@@ -11,6 +11,12 @@ def sudoku(name):
     i=1
     j=1
     listk=[]
+    for i in a:
+        for j in a[i]:
+            if a[i][j]==0:
+                listk.append([i,j])
+    i=1
+    j=1
     while i<10:
         listr=[]
         listbox=[]
@@ -23,35 +29,32 @@ def sudoku(name):
         listbox=listb.listb(a,i,j)
         listu=union.union3(listr,listc,listbox)
         listv=complement.complement(listu)
-        if a[i][j]==0 or ([i,j] in listk):
-            if [i,j] not in listk:
-                listk.append([i,j])
-            a[i][j]=1
-            while a[i][j]<11:
+        if ([i,j] in listk):
+            a[i][j]+=1
+            while a[i][j]<=10:
                 error=errchk.errchk(a[i][j],listv)
                 if error:
                     a[i][j]+=1
-                    if a[i][j]==10:
-                        a[i][j]=0
-                        j=listk[len(listk)-1][1]
-                        i=listk[len(listk)-1][0]
-                        listk.pop(-1)
-                        a[i][j]+=1
-                        break
                 else:
                     j+=1
                     if j==10:
                         j=1
                         i+=1
                     break
-
+                    
+            if i<10 and j<10:
+                if a[i][j]==11:
+                    a[i][j]=0
+                    c=listk.index([i,j])
+                    i=listk[c-1][0]
+                    j=listk[c-1][1]
+            
         else:
             j+=1
             if j==10:
                 j=1
                 i+=1
             
-
-        output.output(a)
+    output.output(a)
             
             
